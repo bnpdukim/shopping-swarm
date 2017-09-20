@@ -6,6 +6,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.labels.arch == docker2
     ports:
       - "6000:6000"
     volumes:
@@ -18,6 +21,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.labels.arch == docker2
     ports:
       - "6002:6002"
     volumes:
@@ -30,6 +36,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints:
+          - node.labels.arch == docker2
     ports:
       - "6004:6004"
     volumes:
@@ -44,7 +53,8 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints: 
+          - node.role == manager
     networks:
       - shoppingnet
   eureka:
@@ -53,6 +63,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+      placement:
+        constraints: 
+          - node.labels.arch == docker1
     ports:
       - "8761:8761"
     volumes:
